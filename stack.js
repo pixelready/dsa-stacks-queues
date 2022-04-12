@@ -18,34 +18,46 @@ class Stack {
 	top = null;
 	size = 0;
 
-	constructor() {
+	constructor(vals) {
 		this._linkedList = new LinkedList(vals);
+		this.top = this._linkedList.head;
 	}
 
 	/** push(val): add new value to the top of the stack. Returns undefined. */
 
 	push(val) {
-		this.top = val;
-		this._linkedList.push(val);
+
+		this._linkedList.unshift(val);
+		this.top = this._linkedList.head;
+		this.size++;
+		return;
 	}
 
 	/** pop(): remove the node from the top of the stack
    * and return its value. Should throw an error if the stack is empty. */
 
 	pop() {
-		this.top = this._array[this._array.length - 1];
-		return this._linkedList.pop();
+
+		if(this.size === 0){
+			throw new Error("Nothing here to pop, homie!");
+		}
+
+		this.top = this._linkedList.head;
+		this.size--;
+		return this._linkedList.shift();
 	}
 
 	/** peek(): return the value of the top node in the stack. */
 
 	peek() {
-		return this.top;
+		return this.top.val;
 	}
 
 	/** isEmpty(): return true if the stack is empty, otherwise false */
 
-	isEmpty() {}
+	isEmpty() {
+		return this.size === 0;
+	}
 }
 
 module.exports = Stack;
